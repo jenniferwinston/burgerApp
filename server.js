@@ -8,15 +8,74 @@ var app = express();
 var exphbs = require('express-handlebars');
 
 
-var titles = {
-    title: "My awesome title."
-};
 
+//Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static(__dirname + '/public'));
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+var exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-app.get('/', function (req, res) {
-    res.render('home', {layout: "sidebar", title: "My awesome title."});
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'burgers'
+});
+
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  };
+
+  console.log('connected as id ' + connection.threadId);
+
 })
 
-app.listen(3000);
+//root get route
+app.get('/', function(req,res) {
+
+    connection.query('SELECT * FROM events;', function(err, data) {
+      if (err) throw err;
+
+      //test it
+      //console.log('The solution is: ', data);
+
+      //test it
+      //res.send(data);
+
+      res.render('index', {events : data});
+    });
+});
+
+
+
+//post route -> back to home
+app.post('/create', function(req, res) {
+
+    //test it
+    //console.log('You sent, ' + req.body.event);
+
+    //test it
+    //res.send('You sent, ' + req.body.event)
+
+    connection.query('INSERT INTO events (event) VALUES (?)', [req.body.event], function(err, result) {
+      if (err) throw err;
+
+      res.redirect('/');
+    });
+
+
+});
+
+app.use('/*', function(req,res){
+   res.send("<h1>Get lost much?</h1>");
+});
+
+var PORT = process.env.PORT || 3000;
+app.listen(PORT);

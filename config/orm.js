@@ -4,9 +4,29 @@
 
 var connection = require("../config/connection.js");
 
+var orm = {
 
-// selectAll()
-// insertOne()
-// updateOne()
+	selectAll: function(){
 
-// module.exports = orm;
+			var queryString = ;
+			connection.query( function(){
+
+		});
+	},
+
+	insertOne: function(){
+			var queryString = ;
+			connection.query( function(){
+
+		});
+	},
+
+	updateOne: function(){
+			var queryString = ;
+			connection.query( function(){
+
+		});
+	}
+};
+
+module.exports = orm;

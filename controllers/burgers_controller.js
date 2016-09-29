@@ -29,7 +29,7 @@ var burgers = require("../models/burger.js");
 		var condition = 'id = ' + req.params.id;
 		console.log('condition ', condition);
 
-		burgers.update({'devoured': req.body.devoured}, condition, function(data){
+		burgers.update({ devoured: req.body.devoured}, condition, function(data){
 			res.redirect('/burgers');
 		});
 	});
@@ -42,3 +42,4 @@ var burgers = require("../models/burger.js");
 	});
 
 module.exports = router;
+

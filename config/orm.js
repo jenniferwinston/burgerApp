@@ -50,10 +50,10 @@ var orm = {
 
 	// objColVals would be the columns and values that you want to update
 	update: function(table, objColVals, condition, cb){
-			var queryString = 'UPDATE' + table;
+			var queryString = 'UPDATE ' + table;
 			queryString = queryString + ' SET ';
 			queryString = queryString + objToSql(objColVals);
-			queryString = queryString + 'WHERE';
+			queryString = queryString + 'WHERE ' ;
 			queryString = queryString + condition;
 			console.log(queryString);
 

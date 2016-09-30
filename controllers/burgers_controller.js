@@ -29,7 +29,7 @@ var burgers = require("../models/burger.js");
 		});
 	});
 
-	router.delete('burgers/delete/:id', function (req, res){
+	router.delete('/burgers/delete/:id', function (req, res){
 		burgers.delete(req.params.id, function(){
 			res.redirect('/burgers');
 		});

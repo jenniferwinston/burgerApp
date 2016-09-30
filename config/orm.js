@@ -15,7 +15,10 @@ var connection = require("../config/connection.js");
 	function objToSql(ob){
 		var arr=[];
 		for (var key in ob){
-			arr.push(key + '=' + ob[key]);
+			if ( ob.hasOwnProperty(key)){
+				arr.push(key + '=' + ob[key]);
+			}
+			
 		};
 		return arr.toString();
 	};
@@ -44,7 +47,7 @@ var orm = {
 
 			connection.query(queryString, vals, function(err, result){
 				if (err) throw err;
-				cd(result);
+				cb(result);
 			});
 	},
 

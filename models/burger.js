@@ -19,12 +19,15 @@ var burgers = {
 	},
 
 	update: function(objColVals, condition, cb){
-		orm.update('burgers', objColVals, condition, function(res){
+		var condition = 'burger_id = ' + condition;
+		var objColValsObject = {devoured: objColVals};
+		orm.update('burgers', objColValsObject, condition, function(res){
 			cb(res);
 		});
 	},
 
 	delete: function(condition, cb){
+		var condition = 'burger_id = ' + condition;
 		orm.delete('burgers', condition, function(res){
 			cb(res);
 		});
